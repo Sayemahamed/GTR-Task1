@@ -1,3 +1,5 @@
+import argparse
+import sys
 from typing import Literal
 
 import matplotlib.pyplot as plt
@@ -5,6 +7,7 @@ import pandas as pd
 import yfinance as yf
 from rich.console import Console
 from rich.panel import Panel
+from rich.prompt import Prompt
 from rich.table import Table
 from rich.text import Text
 
@@ -265,9 +268,46 @@ class TradingBot:
         plt.show()
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Run a trading bot with given symbol and date range."
+    )
+
+    parser.add_argument(
+        "--symbol",
+        type=str,
+        default="",
+        help="Stock symbol (e.g., AMZN, AAPL, MSFT). If empty, you’ll be prompted.",
+    )
+    parser.add_argument(
+        "--start-date",
+        type=str,
+        default="2018-01-01",
+        help="Start date in YYYY-MM-DD format (default: 2018-01-01).",
+    )
+    parser.add_argument(
+        "--end-date",
+        type=str,
+        default="2023-12-31",
+        help="End date in YYYY-MM-DD format (default: 2023-12-31).",
+    )
+
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
+    args = parse_args()
+    if not args.symbol:
+        Console().print(
+            "[red]No symbol provided.[/red] Suggestions: [yellow]AMZN, AAPL, MSFT, TSLA[/yellow]"
+        )
+        args.symbol = Prompt().ask(prompt="Please enter a stock symbol").strip().upper()
+        if not args.symbol:
+            Console().print("[bold red]No symbol entered. Exiting.[/bold red]")
+            sys.exit(1)
+
     trading_bot = TradingBot(
-        symbol="AMZN", start_date="2018-01-01", end_date="2023-12-31"
+        symbol=args.symbol, start_date=args.start_date, end_date=args.end_date
     )
 
     if trading_bot.fetch_data() and trading_bot.calculate_moving_averages():
