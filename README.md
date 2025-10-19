@@ -85,15 +85,15 @@ Please enter a stock symbol: CAT
 ---
 
 ## 🧩 Features
-```
-✅ Class-based design for reusability
+
+✅ Class-based design for reusability 
 ✅ Uses `yfinance` for historical data
 ✅ Cleans and preprocesses missing data
 ✅ Detects **Golden Cross** and **Death Cross**
 ✅ Executes simulated buy/sell trades
 ✅ Evaluates total profit or loss
 ✅ Generates a clean matplotlib plot with signals
-```
+
 ---
 ## 🧾 License
 
