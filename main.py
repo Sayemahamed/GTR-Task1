@@ -295,11 +295,56 @@ def parse_args():
     return parser.parse_args()
 
 
+suggestions = [
+    "AMZN",
+    "AAPL",
+    "MSFT",
+    "TSLA",
+    "GOOGL",
+    "META",
+    "NVDA",
+    "AMD",
+    "NFLX",
+    "INTC",
+    "WMT",
+    "COST",
+    "DIS",
+    "NKE",
+    "SBUX",
+    "MCD",
+    "HD",
+    "TGT",
+    "JPM",
+    "BAC",
+    "GS",
+    "V",
+    "MA",
+    "MS",
+    "C",
+    "XOM",
+    "CVX",
+    "GE",
+    "CAT",
+    "BA",
+    "F",
+    "GM",
+    "JNJ",
+    "PFE",
+    "MRK",
+    "UNH",
+    "ABBV",
+    "LLY",
+    "BMY",
+]
+
+
 if __name__ == "__main__":
     args = parse_args()
     if not args.symbol:
         Console().print(
-            "[red]No symbol provided.[/red] Suggestions: [yellow]AMZN, AAPL, MSFT, TSLA[/yellow]"
+            "[red]No symbol provided.[/red] Suggestions: [yellow]"
+            + ", ".join(suggestions)
+            + "[/yellow]"
         )
         args.symbol = Prompt().ask(prompt="Please enter a stock symbol").strip().upper()
         if not args.symbol:
